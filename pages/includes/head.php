@@ -7,7 +7,7 @@
     <link rel="icon" href='media/image/gericoIcon.png' type="image/icon">
 
     <link rel="stylesheet" type="text/css" href='bootstrap/css/bootstrap.min.css'>
-    <link rel="stylesheet" type="text/css" href='lib/custom/style.css'>
+    <link rel="stylesheet" type="text/css" href='styles/css/head.css'>
 
     <script defer src='bootstrap/js/bootstrap.bundle.min.js'></script>
 </head>

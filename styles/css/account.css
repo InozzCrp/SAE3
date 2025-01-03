@@ -1,0 +1,24 @@
+.employee-info {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+  
+.employee-info h1 {
+    color: #228B22;
+    text-align: center;
+    margin-top: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+  
+.employee-info p {
+    margin: 5px 0;
+}
+  
+.employee-info strong {
+    font-weight: bold;
+}

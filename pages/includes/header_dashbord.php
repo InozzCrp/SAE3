@@ -19,15 +19,15 @@
             <a class="nav-link" href="#">Contact</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/SAE-3/fiche_de_paye.php">Fiche de paye</a>
+            <a class="nav-link" href="/fiche_de_paye.php">Fiche de paye</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/SAE-3/conges.php">Congés</a>
           </li>
         </ul>
         <div class="navbar-nav">
-          <a class="navbar-brand ml-auto" href="../SAE-3/account.php">
-              <img src="../SAE-3/media/image/compte.jpg" width="40" height="35">
+          <a class="navbar-brand ml-auto" href="../account.php">
+              <img src="../media/image/compte.webp" width="40" height="40">
           </a>
         </div>
       </div>

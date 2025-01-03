@@ -10,7 +10,7 @@ $DEBUG_DELETE = false;
 $base = 'sae-3-db';
 $host = 'localhost';
 $name = 'root';
-$pass = 'Nathannat123*';
+$pass = '';
 
 date_default_timezone_set('Europe/Paris');
 
@@ -48,7 +48,7 @@ function get_infos($pdo, $uid)
     // Vérifiez si la préparation de la requête a échoué
     if (!$stmt)
     {
-        header("Location: ../SAE-3/login.php?error=stmtfailed");
+        header("Location: ../login.php?error=stmtfailed");
         exit();
     }
 
@@ -92,7 +92,7 @@ function loginUser($pdo, $id, $password)
 {
     if(emptyInputLogin($id, $password) !== FALSE)
     {
-        header("location: ../SAE-3/login.php?error=emptyinput");
+        header("location: ../login.php?error=emptyinput");
         exit();
     }
 
@@ -100,7 +100,7 @@ function loginUser($pdo, $id, $password)
 
     if($uidExists == FALSE)
     {
-        header("location: ../SAE-3/login.php?error=wronglogin");
+        header("location: ../login.php?error=wronglogin");
         exit();
     }
 
@@ -109,13 +109,13 @@ function loginUser($pdo, $id, $password)
 
     if(/*$checkPassword == FALSE*/ /*$passwordHashed != $password*/ true==false)
     {
-        header("location: ../SAE-3/login.php?error=wronglogin");
+        header("location: ../login.php?error=wronglogin");
         exit();
     }
     
         $_SESSION["userid"] = $uidExists['ID_employe'];
         $_SESSION["userlogin"] = $uidExists["Login_employe"];
-        header("location: ../SAE-3/dashboard.php?content=accueil");
+        header("location: ../dashboard.php?content=accueil");
         exit();
 }
 
