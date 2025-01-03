@@ -1,0 +1,102 @@
+.fiche-page {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+    background-color: var(--background);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.fiche-filter {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fiche-filter label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.fiche-filter input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.fiche-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.fiche-item p {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.fiche-item button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.fiche-item .btn-primary {
+    background-color: var(--colorTint1);
+    color: white;
+}
+
+.fiche-item .btn-primary:hover {
+    background-color: var(--colorTint2);
+}
+
+.fiche-item .btn-secondary {
+    background-color: gray;
+    color: white;
+}
+
+.fiche-item .btn-secondary:hover {
+    background-color: darkgray;
+}
+
+.fiche-display {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.fiche-display embed {
+    width: 100%;
+    height: 600px;
+    border-radius: 5px;
+    border: 1px solid var(--colorTint1);
+}
+
+@media (max-width: 768px) {
+    .fiche-filter,
+    .fiche-item {
+        width: 90%;
+    }
+
+    .fiche-filter input,
+    .fiche-item button {
+        font-size: 0.9rem;
+    }
+}

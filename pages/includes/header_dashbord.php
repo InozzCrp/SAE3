@@ -27,7 +27,7 @@
         </ul>
         <div class="navbar-nav">
           <a class="navbar-brand ml-auto" href="../account.php">
-              <img src="../media/image/compte.jpg" width="40" height="35">
+              <img src="../media/image/compte.webp" width="40" height="40">
           </a>
         </div>
       </div>

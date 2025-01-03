@@ -1,0 +1,97 @@
+:root {
+    --colorTint1: #7da042;
+    --colorTint2: #588157;
+    --colorTint3: #3a5a40;
+    --colorTint4: #344E41;
+    --background: #f0eeee;
+    --fontColor: #000;
+}
+
+@font-face {
+    font-family: Nunito;
+    src: url(../../../styles/fonts/Nunito.ttf);
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url(../../../styles/fonts/OpenSans-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Open Sans Extra Bold';
+    src: url(../../../styles/fonts/OpenSans-ExtraBold.ttf);
+}
+
+body {
+    background-color: var(--background);
+    width: 100%;
+    height: 100%;
+    font-family: 'Open Sans';
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+h1, h2 {
+    font-family: Nunito, sans-serif;
+    color: var(--colorTint3);
+    font-size: 2.5em;
+}
+
+h3, h4, h5, h6 {
+    font-family: 'Open Sans';
+    color: var(--fontColor);
+}
+
+a {
+    font-family: 'Open Sans';
+    color: var(--colorTint3);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--colorTint4);
+    text-decoration: underline;
+}
+
+img {
+    object-fit: cover;
+    border: solid var(--colorTint1);
+    border-radius: 15%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.navbar {
+    background: linear-gradient(to right, var(--colorTint1), var(--colorTint2));
+    padding: 15px 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#calendar {
+    transform: translate3d(0, 0, 0);
+    width: 420px;
+    margin: 0 auto;
+    height: 570px;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    #calendar {
+        width: 100%;
+        height: auto;
+    }
+    .navbar {
+        padding: 10px;
+    }
+    body {
+        font-size: 14px;
+    }
+}
