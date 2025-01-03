@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/SAE-3/">
+      <a class="navbar-brand" href="/">
         <img src="media/image/gericoIcon.png" alt="Logo de l'entreprise" width="24" height="24">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
