@@ -39,7 +39,7 @@ function get_footer(){
     include 'pages/includes/footer.php';
 }
 
-function uidExists($pdo, $uid)
+function get_infos($pdo, $uid)
 {
     // Préparez la requête SQL
     $sql = "SELECT * FROM employe WHERE id_employe = :uid";
@@ -168,4 +168,27 @@ function checkMail($pdo,$mail){
             $stmt->execute();
             $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $resultat;
+}
+
+function isWeekend($date) {
+    return (date('N', strtotime($date)) >= 6);
+}
+
+function isFerie($pdo,$date){
+        $sql = "Select nom_evenement from jours_feries where jour = :date";
+        $stmt=$pdo->prepare($sql);
+        $stmt->bindParam(':date',$date, PDO::PARAM_STR);
+        $stmt->execute();
+        $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultat;
+}
+
+function insererConges($pdo,$id,$date,$periode){
+    $sql = "Insert into conges(date_congé,partie_journée,id_employe) values (:date,:periode,:id)";
+    $stmt=$pdo->prepare($sql);
+    $stmt->bindParam(':date',$date, PDO::PARAM_STR);
+    $stmt->bindParam(':id',$id, PDO::PARAM_STR);
+    $stmt->bindParam(':periode',$periode, PDO::PARAM_STR);
+    $success = $stmt->execute();
+    return $success;
 }

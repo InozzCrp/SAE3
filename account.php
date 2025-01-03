@@ -2,7 +2,7 @@
     require("parametres\constante.php");
     get_head();
     get_header_dashbord();
-    $infos = uidExists($pdo,$_SESSION["userid"]);
+    $infos = get_infos($pdo,$_SESSION["userid"]);
     echo "<h1>Informations de l'employé</h1>";
     echo "<p>Nom : " . htmlspecialchars($infos['Nom_employe']) . "</p>";
     echo "<p>Prénom : " . htmlspecialchars($infos['Prenom_employe']) . "</p>";
