@@ -31,7 +31,7 @@ if (isset($_POST['ficheId'])) {
 }
 ?>
 
-<link rel="stylesheet" type="text/css" href='styles/css/fiche_de_paye.css'>
+<link rel="stylesheet" type="text/css" href='styles/css/fiche_de_paie.css'>
 
 <div class='p-3 h-100 dashboardcontent'>
     <div class="fiche-filter d-flex flex-column align-items-center">
