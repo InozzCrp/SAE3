@@ -141,7 +141,7 @@ function loginUser($pdo, $id, $password)
         if(checkAdmin($pdo, $id))
             header("location: ../admin.php");
         else
-            header("location: ../dashboard.php?content=accueil");
+            header("location: ../dashboard.php");
 
         exit();
 }
