@@ -9,7 +9,7 @@ get_head();
     get_header_dashbord();
 ?>
     <body>
-        <div class='p-3 h-100 dashboardcontent col-10'>
+        <div class='p-3 h-100 dashboardcontent'>
             <h1>
                 <?php 
                     $infos = get_infos($pdo, $_SESSION["userid"]);

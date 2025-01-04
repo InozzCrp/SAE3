@@ -31,40 +31,50 @@ if (isset($_POST['ficheId'])) {
 }
 ?>
 
-<form method="post" class="container text-center mx-auto p-2" style="width: 70vw;">
-    <label for="startPeriode">Start</label>
-    <input type="date" name="debutPeriode" id="debutPeriode" class="form-control" value="<?= htmlspecialchars($startPeriode) ?>" />
-    <label for="finPeriode">Fin</label>
-    <input type="date" name="finPeriode" id="finPeriode" class="form-control" value="<?= htmlspecialchars($finPeriode) ?>" />
-    <button type="submit" class="btn btn-primary mt-3">Soumettre</button>
-</form>
+<link rel="stylesheet" type="text/css" href='styles/css/fiche_de_paye.css'>
 
-<?php if (empty($fiches)) : ?>
-    <p>Aucune fiche trouvée dans cette période</p>
-<?php else :
-     ?>
-    <p>Fiche la plus récente :</p>
-    <?php foreach ($fiches as $fiche) : ?>
-        <div>
-            <p>Fiche du <?= htmlspecialchars($fiche['debut_periode']) ?> au <?= htmlspecialchars($fiche['fin_periode']) ?></p>
-            <form method="post">
-                <input type="hidden" name="ficheId" value="<?= htmlspecialchars($fiche['ID_Fichedepaie']) ?>" />
-                <button type="submit" name="submit" class="btn btn-primary mt-3">Voir</button>
-            </form>
-            <form method="post" action="download.php">
-                <input type="hidden" name="ficheId" value="<?= htmlspecialchars($fiche['ID_Fichedepaie']) ?>" />
-                <button type="submit" class="btn btn-secondary mt-3">Télécharger</button>
-            </form>
+<div class='p-3 h-100 dashboardcontent'>
+    <div class="fiche-filter d-flex flex-column align-items-center">
+        <div class="form-group w-100">
+            <label for="startPeriode">Start</label>
+            <input type="date" name="debutPeriode" id="debutPeriode" class="form-control" value="<?= htmlspecialchars($startPeriode) ?>" />
         </div>
-    <?php endforeach; ?>
+        <div class="form-group w-100">
+            <label for="finPeriode">Fin</label>
+            <input type="date" name="finPeriode" id="finPeriode" class="form-control" value="<?= htmlspecialchars($finPeriode) ?>" />
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Soumettre</button>
+    </div>
 
-    <?php if ($ficheToDisplay) : ?>
-        <div>
-            <h4>Affichage de la fiche :</h4>
-            <?php
-            $base64pdf = base64_encode($ficheToDisplay['pdf']);
-            echo '<embed src="data:application/pdf;base64,' . $base64pdf . '" width="100%" height="90%" />';
-            ?>
+    <?php if (empty($fiches)) : ?>
+        <p>Aucune fiche trouvée dans cette période</p>
+    <?php else :
+        ?>
+            <div class="fiche-list mt-4">
+            <p>Fiche la plus récente :</p> <!-- Utile même ???-->
+            <?php foreach ($fiches as $fiche) : ?>
+                <div class="fiche-item mb-3 p-3">
+                    <p>Fiche du <?= htmlspecialchars($fiche['debut_periode']) ?> au <?= htmlspecialchars($fiche['fin_periode']) ?></p>
+                    <form method="post" class="d-inline">
+                        <input type="hidden" name="ficheId" value="<?= htmlspecialchars($fiche['ID_Fichedepaie']) ?>" />
+                        <button type="submit" name="submit" class="btn btn-success me-2">Voir</button>
+                    </form>
+                    <form method="post" action="download.php" class="d-inline">
+                        <input type="hidden" name="ficheId" value="<?= htmlspecialchars($fiche['ID_Fichedepaie']) ?>" />
+                        <button type="submit" class="btn btn-secondary">Télécharger</button>
+                    </form>
+                </div>
+            <?php endforeach; ?>
         </div>
-    <?php endif; ?>
-<?php endif; ?>
+
+        <?php if ($ficheToDisplay) : ?>
+            <div>
+                <h4>Affichage de la fiche :</h4>
+                <?php
+                $base64pdf = base64_encode($ficheToDisplay['pdf']);
+                echo '<embed src="data:application/pdf;base64,' . $base64pdf . '" width="100%" height="90%" />';
+                ?>
+            </div>
+        <?php endif; ?>
+    <?php endif;?>
+</div>
