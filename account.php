@@ -1,5 +1,10 @@
 <?php
-require("parametres/constante.php");
+require("constante.php");
+
+session_start();
+
+get_session_verification();
+
 get_head();
 get_header_dashbord();
 
@@ -20,6 +25,10 @@ $labels = [
 foreach ($labels as $label => $key) {
     echo "<p><strong>" . $label . " :</strong> " . htmlspecialchars($infos[$key]) . "</p>";
 }
+
+echo '<form action="parametres/logout.php" method="POST">
+        <button type="submit">Se déconnecter</button>
+      </form>';
 
 echo "</div>";
 

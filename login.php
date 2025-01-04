@@ -1,5 +1,5 @@
 <?php
-    require("parametres\constante.php");
+    require("constante.php");
 
     if(isset($_POST["submit"]) && isset($_POST["uid"]) && isset($_POST["password"]))
     {

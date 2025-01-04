@@ -1,10 +1,13 @@
 <?php
-require("parametres\constante.php");
+require("constante.php");
+
+get_session_verification();
+
 get_head();
 get_header_dashbord();
 $id = $_SESSION["userid"];
 $informations = get_infos($pdo,$_SESSION["userid"]);
-$nbcongés = $informations["Nb_congés_restant"];
+$nbcongés = $informations["Nb_congés_restants"];
 echo "Bonjour ". $informations["Nom_employe"] ."&nbsp". $informations["Prenom_employe"] .", il vous reste " . $nbcongés. " jour(s) de congés restant.";
 if($nbcongés==0){
     echo "</br> Par conséquent, vous ne pouvez plus réserver de congés";
@@ -13,12 +16,12 @@ else{
     if(isset($_POST["date-conges"])){
         $date=$_POST["date-conges"];
         if(isweekend($date)){
-            header("location: ../SAE-3/conges.php?error=weekend");
+            header("location: ../conges.php?error=weekend");
         }
         $resultat = isFerie($pdo,$date);
         if(!empty($resultat)){
             $event = $resultat['nom_evenement'];
-            header("location: ../SAE-3/conges.php?error=ferie&event=$event");
+            header("location: ../conges.php?error=ferie&event=$event");
         }
         else{
             $periode = $_POST["periode"];

@@ -1,5 +1,8 @@
 <?php
-require("parametres\constante.php");
+require("constante.php");
+
+get_session_verification();
+
 get_head();
 ?>
 <?php
@@ -7,27 +10,41 @@ get_head();
 ?>
     <body>
         <div class='p-3 h-100 dashboardcontent col-10'>
-            <?php
-                if (isset($_GET["content"]))
-                {
-                    if ($_GET["content"] == "conges")
-                    {
-                        $file = 'media\pdf\PDF_Test.pdf'; // Chemin vers votre fichier PDF
+            <h1>
+                <?php 
+                    $infos = get_infos($pdo, $_SESSION["userid"]);
+                    
+                    echo "Bienvenue sur la page d'accueil de l'espace employé, $infos[Nom_employe] $infos[Prenom_employe].";
+                ?>
+            </h1>
+            <h3>
+                <?php
+                    $informations = get_infos($pdo,$_SESSION["userid"]);
+                    $nbcongés = $informations["Nb_congés_restants"];
+                    echo "Il vous reste $nbcongés jour(s) de congés à placer."
+                ?>
+            </h3>
+            <h3>
+                <?php
+                    $fiches = rechercheFiches($pdo, $_SESSION["userid"], null, null);
+                    $fiches = array_reverse($fiches);
+                    $premiereFiche = $fiches[0];
 
-                        echo '<object data="' . $file . '" type="application/pdf" width="100px" height="100px">
-                            <p>Votre navigateur ne supporte pas les fichiers PDF. <a href="' . $file . '">Télécharger le fichier PDF</a>.</p>
-                        </object>';
-                    }
-                    elseif ($_GET["content"] == "fiches")
-                    {
-                        echo "<p class='text-danger'>Page fiches de paie</p>";
-                    }
+                    $formatter = new IntlDateFormatter(
+                        'fr_FR', 
+                        IntlDateFormatter::LONG, 
+                        IntlDateFormatter::NONE
+                    );
+                
+                    $dateDebut = $formatter->format(new DateTime($premiereFiche['debut_periode']));
+                    $dateFin = $formatter->format(new DateTime($premiereFiche['fin_periode']));
+
+                    if(empty($fiches))
+                        echo "Vous n'avez aucune fiche de paie de disponible.";
                     else
-                    {
-                        echo "<p class='text-danger'>Page accueil</p>";
-                    }
-                }
-            ?>
+                        echo "Votre fiche de paie disponible la plus récente est celle du " . htmlspecialchars($dateDebut) . " au " . htmlspecialchars($dateFin) . ".";
+                ?>
+            </h3>
         </div>
         <!--
         <div class="container">
