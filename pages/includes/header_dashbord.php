@@ -13,7 +13,7 @@
             <a class="nav-link" href="dashboard.php">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/fiche_de_paye.php">Fiche de paye</a>
+            <a class="nav-link" href="/fiche_de_paie.php">Fiche de paie</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/conges.php">Congés</a>
