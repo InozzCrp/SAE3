@@ -1,5 +1,5 @@
 <?php
-	require("parametres\constante.php");
+	require("constante.php");
 	get_head();
 ?>
 <body>

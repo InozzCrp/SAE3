@@ -10,7 +10,7 @@ $DEBUG_DELETE = false;
 $base = 'sae-3-db';
 $host = 'localhost';
 $name = 'root';
-$pass = 'Nathannat123*';
+$pass = '';
 
 date_default_timezone_set('Europe/Paris');
 
@@ -48,7 +48,7 @@ function get_infos($pdo, $uid)
     // Vérifiez si la préparation de la requête a échoué
     if (!$stmt)
     {
-        header("Location: ../SAE-3/login.php?error=stmtfailed");
+        header("Location: ../login.php?error=stmtfailed");
         exit();
     }
 
@@ -73,6 +73,28 @@ function get_infos($pdo, $uid)
     }
 }
 
+function uidExists($pdo, $uid)
+{
+    $sql = "SELECT * FROM employe WHERE login_employe = :uid";
+    $stmt = $pdo->prepare($sql);
+
+    if (!$stmt) {
+        header("location: ../index.php?error=stmtfailed");
+        exit();
+    }
+
+    $stmt->bindParam(':uid', $uid, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $resultData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($resultData) {
+        return $resultData;
+    } else {
+        return false;
+    }
+}
+
 function emptyInputLogin($uid, $password)
 {
     $result = NULL;
@@ -92,7 +114,7 @@ function loginUser($pdo, $id, $password)
 {
     if(emptyInputLogin($id, $password) !== FALSE)
     {
-        header("location: ../SAE-3/login.php?error=emptyinput");
+        header("location: ../login.php?error=emptyinput");
         exit();
     }
 
@@ -100,7 +122,7 @@ function loginUser($pdo, $id, $password)
 
     if($uidExists == FALSE)
     {
-        header("location: ../SAE-3/login.php?error=wronglogin");
+        header("location: ../login.php?error=wronglogin");
         exit();
     }
 
@@ -109,30 +131,37 @@ function loginUser($pdo, $id, $password)
 
     if(/*$checkPassword == FALSE*/ /*$passwordHashed != $password*/ true==false)
     {
-        header("location: ../SAE-3/login.php?error=wronglogin");
+        header("location: ../login.php?error=wronglogin");
         exit();
     }
     
         $_SESSION["userid"] = $uidExists['ID_employe'];
         $_SESSION["userlogin"] = $uidExists["Login_employe"];
-        header("location: ../SAE-3/dashboard.php?content=accueil");
+
+        if(checkAdmin($pdo, $id))
+            header("location: ../admin.php");
+        else
+            header("location: ../dashboard.php?content=accueil");
+
         exit();
 }
 
-function checkAdmin($pdo,$id)
+function checkAdmin($pdo, $uid)
 {
-    $request = "Select ID_metier from employe where login_employe=?;";
-    $stmt = mysqli_stmt_init($pdo);
-    if (!mysqli_stmt_prepare($stmt, $request)) {
-        die('SQL error: ' . mysqli_error($pdo));
+    $sql = "SELECT ID_metier FROM employe WHERE login_employe = :uid";
+    $stmt = $pdo->prepare($sql);
+
+    if (!$stmt) {
+        die('SQL error: ' . $pdo->errorInfo()[2]);
     }
-    mysqli_stmt_bind_param($stmt, 'i', $id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    if($row = mysqli_fetch_assoc($result)){
-        if ($row['ID_metier'] == '2') {
-            return true;
-        }
+
+    $stmt->bindParam(':id', $uid, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($row && $row['ID_metier'] == '2') {
+        return true;
     }
     return false;
 }

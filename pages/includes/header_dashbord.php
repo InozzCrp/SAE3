@@ -13,16 +13,10 @@
             <a class="nav-link" href="dashboard.php?content=accueil">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="/fiche_de_paye.php">Fiche de paye</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/SAE-3/conges.php">Congés</a>
+            <a class="nav-link" href="/conges.php">Congés</a>
           </li>
         </ul>
         <div class="navbar-nav">
