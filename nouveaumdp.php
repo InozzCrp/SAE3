@@ -14,7 +14,7 @@ if(isset($_POST["mail"]))
             if(empty($resultat)){
                 echo("E-mail n'appartenant à aucun compte");
                 ?>
-                <form action="../recuperation.php">
+                <form action="../SAE-3/recuperation.php">
                     <input type="submit" value="Retour" />
                 </form>
                 <?php
@@ -31,7 +31,7 @@ if(isset($_POST["mdp"])){
         ':mail' => $mail, 
         ':mdp' => $hashedPassword 
     ]);
-    header("location: ../login.php?error=changedpassword");
+    header("location: ../SAE-3/login.php?error=changedpassword");
     exit();
 }
 

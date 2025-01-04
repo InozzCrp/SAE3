@@ -10,7 +10,7 @@ if(isset($_POST["mail"]))
             if(empty($resultat)){
                 echo("E-mail n'appartenant à aucun compte");
                 ?>
-                <form action="../recuperation.php">
+                <form action="../SAE-3/recuperation.php">
                     <input type="submit" value="Retour" />
                 </form>
                 <?php
@@ -26,7 +26,7 @@ $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
 if(!empty($resultat)){
     echo "Votre login est $resultat[login_employe]";
     ?>
-    <form action="../login.php">
+    <form action="../SAE-3/login.php">
         <input type="submit" value="Retour" />
     </form>
     <?php
