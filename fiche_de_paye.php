@@ -1,5 +1,8 @@
 <?php
 require("constante.php");
+
+get_session_verification();
+
 get_head();
 get_header_dashbord();
 

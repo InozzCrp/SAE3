@@ -35,6 +35,13 @@ function get_header_dashbord(){
     include 'pages/includes/header_dashbord.php';
 }
 
+function get_session_verification(){
+    if (!isset($_SESSION['userid'])) {
+        header("Location: login.php?error=notconnected");
+        exit();
+    }
+}
+
 function get_footer(){
     include 'pages/includes/footer.php';
 }
