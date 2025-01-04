@@ -133,7 +133,7 @@ function loginUser($pdo, $id, $password)
         exit();
     }
 
-    $passwordHashed = $uidExists["usersPassword"];
+    $passwordHashed = $uidExists["Mdp_employe"];
     $checkPassword = password_verify($password, $passwordHashed);
 
     if(/*$checkPassword == FALSE*/ /*$passwordHashed != $password*/ true==false)
@@ -159,10 +159,12 @@ function checkAdmin($pdo, $uid)
     $stmt = $pdo->prepare($sql);
 
     if (!$stmt) {
-        die('SQL error: ' . $pdo->errorInfo()[2]);
+        die('SQL error: ' . implode(', ', $pdo->errorInfo()));
     }
 
-    $stmt->bindParam(':id', $uid, PDO::PARAM_STR);
+    // Utilisez :uid, comme dans la requête
+    $stmt->bindParam(':uid', $uid, PDO::PARAM_STR);
+
     $stmt->execute();
 
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
