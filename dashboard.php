@@ -20,7 +20,7 @@ get_head();
             <h3>
                 <?php
                     $informations = get_infos($pdo,$_SESSION["userid"]);
-                    $nbcongés = $informations["Nb_congés_restants"];
+                    $nbcongés = $informations["Nb_congés_restant"];
                     echo "Il vous reste $nbcongés jour(s) de congés à placer."
                 ?>
             </h3>

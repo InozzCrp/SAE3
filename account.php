@@ -1,7 +1,6 @@
 <?php
 require("constante.php");
 
-session_start();
 
 get_session_verification();
 

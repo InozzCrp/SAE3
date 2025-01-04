@@ -6,16 +6,13 @@ $mail = $_POST["mail"];
 
 if(isset($_POST["mail"]))
     {
-            $sql = "Select 1 from employe where email_employe = :mail";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':mail',$mail, PDO::PARAM_STR);
-            $stmt->execute();
-            $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $resultat = checkMail($pdo,$mail);
             if(empty($resultat)){
                 echo("E-mail n'appartenant à aucun compte");
                 ?>
-                <form action="../SAE-3/recuperation.php">
+                <form action="../recuperation.php">
                     <input type="submit" value="Retour" />
+                    <input type="hidden" name="content" value="password" />
                 </form>
                 <?php
                 die();
@@ -31,7 +28,7 @@ if(isset($_POST["mdp"])){
         ':mail' => $mail, 
         ':mdp' => $hashedPassword 
     ]);
-    header("location: ../SAE-3/login.php?error=changedpassword");
+    header("location: ../login.php?error=changedpassword");
     exit();
 }
 

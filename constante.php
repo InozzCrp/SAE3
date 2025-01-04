@@ -10,7 +10,7 @@ $DEBUG_DELETE = false;
 $base = 'sae-3-db';
 $host = 'localhost';
 $name = 'root';
-$pass = '';
+$pass = 'Nathannat123*';
 
 date_default_timezone_set('Europe/Paris');
 
@@ -133,7 +133,7 @@ function loginUser($pdo, $id, $password)
         exit();
     }
 
-    $passwordHashed = $uidExists["usersPassword"];
+    $passwordHashed = $uidExists["Mdp_employe"];
     $checkPassword = password_verify($password, $passwordHashed);
 
     if(/*$checkPassword == FALSE*/ /*$passwordHashed != $password*/ true==false)
@@ -162,7 +162,7 @@ function checkAdmin($pdo, $uid)
         die('SQL error: ' . $pdo->errorInfo()[2]);
     }
 
-    $stmt->bindParam(':id', $uid, PDO::PARAM_STR);
+    $stmt->bindParam(':uid', $uid, PDO::PARAM_STR);
     $stmt->execute();
 
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -225,6 +225,30 @@ function insererConges($pdo,$id,$date,$periode){
     $stmt->bindParam(':date',$date, PDO::PARAM_STR);
     $stmt->bindParam(':id',$id, PDO::PARAM_STR);
     $stmt->bindParam(':periode',$periode, PDO::PARAM_STR);
+    $success = $stmt->execute();
+    return $success;
+}
+
+function recupererConges($pdo,$id){
+    $sql = "Select * from conges where ID_employe = :id order by Date_congé";
+    $stmt=$pdo->prepare($sql);
+    $stmt->bindParam(':id',$id, PDO::PARAM_STR);
+    $stmt->execute();
+    $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if($resultat){
+        return $resultat;
+        }
+    else{
+        return false;
+    }
+}
+
+function updateConge($pdo,$id,$periode,$nbconges){
+    $duree = ($periode === "journée") ? 1 : 0.5;
+    $sql = "Update employe set nb_congés_restant = $nbconges-$duree where id_employe = :id";
+    $stmt=$pdo->prepare($sql);
+    $stmt->bindParam(':id',$id, PDO::PARAM_STR);
+    $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $success = $stmt->execute();
     return $success;
 }
