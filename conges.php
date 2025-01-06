@@ -10,7 +10,7 @@ $conges = recupererConges($pdo,$id);
 $nbconges = $informations["Nb_congés_restant"];
 
 
-
+echo "<div class='p-3 dashboardcontent'>";
 echo "Bonjour ". $informations["Nom_employe"] ." ". $informations["Prenom_employe"] .", il vous reste " . $nbconges. " jour(s) de congés restant. <br>";
 
 if($nbconges==0){
@@ -102,4 +102,6 @@ else{
                 echo "<p>Votre demande à été transmise à l'administrateur</p>";
             }
         }
-?> 
+
+        echo '</div>';
+?>

@@ -9,7 +9,7 @@ get_head();
     get_header_dashbord();
 ?>
     <body>
-        <div class='p-3 h-100 dashboardcontent col-10'>
+        <div class='p-3 dashboardcontent'>
             <h1>
                 <?php 
                     $infos = get_infos($pdo, $_SESSION["userid"]);
@@ -45,11 +45,18 @@ get_head();
                         echo "Votre fiche de paie disponible la plus récente est celle du " . htmlspecialchars($dateDebut) . " au " . htmlspecialchars($dateFin) . ".";
                 ?>
             </h3>
+            <h3>
+                <?php
+                    if (isset($_SESSION['is_admin'])) {
+                        if ($_SESSION['is_admin'] === TRUE) {
+                            echo "<p>Vous êtes un administrateur.</p>";
+                        } else {
+                            echo "<p>Vous êtes un utilisateur standard.</p>";
+                        }
+                    } else {
+                        echo "<p>Vous n'êtes pas connecté.</p>";
+                    }
+                ?>
+            </h3>
         </div>
-        <!--
-        <div class="container">
-            <h1>Bienvenue, <?php echo htmlspecialchars($name);?> <?php echo htmlspecialchars($surname);?> (<?php echo htmlspecialchars($uid);?>) !</h1>
-            <p>Vous êtes connecté.</p>
-        </div>
-        -->
     </body>

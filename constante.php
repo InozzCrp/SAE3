@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 $DEBUG_SELECT = false;
 $DEBUG_SELECT_MULTIPLE = false;
 $DEBUG_INSERT = false;
@@ -36,8 +34,17 @@ function get_header_dashbord(){
 }
 
 function get_session_verification(){
+    session_start();
     if (!isset($_SESSION['userid'])) {
-        header("Location: login.php?error=notconnected");
+        header("Location: /login.php?error=notconnected");
+        exit();
+    }
+}
+
+function get_session_verification_admin(){
+    get_session_verification();
+    if ($_SESSION['is_admin'] !== TRUE) {
+        header("Location: /dashboard.php");
         exit();
     }
 }
@@ -55,7 +62,7 @@ function get_infos($pdo, $uid)
     // Vérifiez si la préparation de la requête a échoué
     if (!$stmt)
     {
-        header("Location: ../login.php?error=stmtfailed");
+        header("Location: /login.php?error=stmtfailed");
         exit();
     }
 
@@ -86,7 +93,7 @@ function uidExists($pdo, $uid)
     $stmt = $pdo->prepare($sql);
 
     if (!$stmt) {
-        header("location: ../index.php?error=stmtfailed");
+        header("location: /login.php?error=stmtfailed");
         exit();
     }
 
@@ -119,58 +126,34 @@ function emptyInputLogin($uid, $password)
 
 function loginUser($pdo, $id, $password)
 {
-    if(emptyInputLogin($id, $password) !== FALSE)
-    {
-        header("location: ../login.php?error=emptyinput");
+    // Vérifiez si les champs sont vides
+    if (emptyInputLogin($id, $password)) {
+        header("Location: /login.php?error=emptyinput");
         exit();
     }
 
-    $uidExists = uidExists($pdo, $id);
-
-    if($uidExists == FALSE)
-    {
-        header("location: ../login.php?error=wronglogin");
+    // Récupérer l'utilisateur dans la base de données
+    $user = uidExists($pdo, $id);
+    if (!$user) {
+        header("Location: /login.php?error=wronglogin");
         exit();
     }
 
-    $passwordHashed = $uidExists["Mdp_employe"];
-    $checkPassword = password_verify($password, $passwordHashed);
-
-    if(/*$checkPassword == FALSE*/ /*$passwordHashed != $password*/ true==false)
-    {
-        header("location: ../login.php?error=wronglogin");
+    // Vérification du mot de passe
+    $passwordHashed = $user["Mdp_employe"];
+    if (!password_verify($password, $passwordHashed)) {
+        header("Location: /login.php?error=problemehash");
         exit();
     }
-    
-        $_SESSION["userid"] = $uidExists['ID_employe'];
-        $_SESSION["userlogin"] = $uidExists["Login_employe"];
 
-        if(checkAdmin($pdo, $id))
-            header("location: ../admin.php");
-        else
-            header("location: ../dashboard.php");
+    // L'utilisateur est authentifié - initialiser les sessions
+    session_start();
+    $_SESSION["userid"] = $user['ID_employe'];
+    $_SESSION["userlogin"] = $user["Login_employe"];
+    $_SESSION["is_admin"] = ($user["ID_metier"] == 2);
 
-        exit();
-}
-
-function checkAdmin($pdo, $uid)
-{
-    $sql = "SELECT ID_metier FROM employe WHERE login_employe = :uid";
-    $stmt = $pdo->prepare($sql);
-
-    if (!$stmt) {
-        die('SQL error: ' . $pdo->errorInfo()[2]);
-    }
-
-    $stmt->bindParam(':uid', $uid, PDO::PARAM_STR);
-    $stmt->execute();
-
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($row && $row['ID_metier'] == '2') {
-        return true;
-    }
-    return false;
+    header("Location: /dashboard.php");
+    exit();
 }
 
 function rechercheFiches($pdo,$id,$datedebut,$datefin){
