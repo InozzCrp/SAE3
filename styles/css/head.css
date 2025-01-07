@@ -9,17 +9,17 @@
 
 @font-face {
     font-family: Nunito;
-    src: url(../../../styles/fonts/Nunito.ttf);
+    src: url(/styles/fonts/Nunito.ttf);
 }
 
 @font-face {
     font-family: 'Open Sans';
-    src: url(../../../styles/fonts/OpenSans-Regular.ttf);
+    src: url(/styles/fonts/OpenSans-Regular.ttf);
 }
 
 @font-face {
     font-family: 'Open Sans Extra Bold';
-    src: url(../../../styles/fonts/OpenSans-ExtraBold.ttf);
+    src: url(/styles/fonts/OpenSans-ExtraBold.ttf);
 }
 
 body {
@@ -33,7 +33,7 @@ body {
 }
 
 h1, h2 {
-    font-family: Nunito, sans-serif;
+    font-family: 'Open Sans Extra Bold';
     color: var(--colorTint3);
     font-size: 2.5em;
 }
