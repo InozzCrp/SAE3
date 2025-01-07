@@ -35,9 +35,6 @@ function get_header_dashbord(){
 
 function get_session_verification(){
     session_start();
-
-    if(get_bearer_token() === "fortnite")
-        exit;
     
     if (!isset($_SESSION['userid'])) {
         header("Location: /login.php?error=notconnected");
@@ -47,22 +44,11 @@ function get_session_verification(){
 
 function get_session_verification_admin(){
     get_session_verification();
+
     if ($_SESSION['is_admin'] !== TRUE) {
         header("Location: /dashboard.php");
         exit;
     }
-}
-
-function get_bearer_token() {
-    $headers = apache_request_headers();
-    
-    if (isset($headers['Authorization'])) {
-        // Extraire le token de l'en-tête Authorization (format: Bearer <token>)
-        if (preg_match('/Bearer\s(\S+)/', $headers['Authorization'], $matches)) {
-            return $matches[1];
-        }
-    }
-    return null; // Si aucun token n'est fourni
 }
 
 function get_footer(){

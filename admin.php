@@ -31,70 +31,82 @@ $employes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <div class='p-3 dashboardcontent'>
         <h1>Administration des Employés</h1>
-        <form method="GET" action="admin.php">
-            <label for="filter">Afficher :</label>
-            <select name="filter" id="filter">
-                <option value="active" <?= ($_GET['filter'] ?? 'active') === 'active' ? 'selected' : '' ?>>Actifs</option>
-                <option value="archived" <?= ($_GET['filter'] ?? '') === 'archived' ? 'selected' : '' ?>>Archivés</option>
-            </select>
-            <button class="btn btn-secondary rounded-0 border border-dark" type="submit">Filtrer</button>
-        </form>
-        <form action="validerconges.php">
-            <button class="btn btn-primary border border-dark" type="submit">Validation des congés</button>
-        </form>
-        <br><br>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Téléphone</th>
-                    <th>Email</th>
-                    <th>Location</th>
-                    <th>Métier</th>
-                    <th>Login</th>
-                    <th>Salaire</th>
-                    <th>Date d'embauche</th>
-                    <th>Nb. Congés Restants</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (empty($employes)): ?>
+        <section class='py-5'>
+            <h2>
+                Gestion des employés
+            </h2>
+            <form method="GET" action="admin.php">
+                <label for="filter">Afficher :</label>
+                <select name="filter" id="filter">
+                    <option value="active" <?= ($_GET['filter'] ?? 'active') === 'active' ? 'selected' : '' ?>>Actifs</option>
+                    <option value="archived" <?= ($_GET['filter'] ?? '') === 'archived' ? 'selected' : '' ?>>Archivés</option>
+                </select>
+                <button class="btn btn-secondary rounded-0 border border-dark" type="submit">Filtrer</button>
+            </form>
+            <br>
+
+            <table>
+                <thead>
                     <tr>
-                        <td colspan="12">Aucun employé trouvé.</td>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Téléphone</th>
+                        <th>Email</th>
+                        <th>Location</th>
+                        <th>Métier</th>
+                        <th>Login</th>
+                        <th>Salaire</th>
+                        <th>Date d'embauche</th>
+                        <th>Nb. Congés Restants</th>
+                        <th>Actions</th>
                     </tr>
-                <?php else: ?>
-                    <?php foreach ($employes as $employe): ?>
-                        <tr class="<?= $isArchived ? 'archived' : '' ?>">
-                            <td><?= htmlspecialchars($employe['ID_employe']) ?></td>
-                            <td><?= htmlspecialchars($employe['Nom_employe']) ?></td>
-                            <td><?= htmlspecialchars($employe['Prenom_employe']) ?></td>
-                            <td><?= htmlspecialchars($employe['Telephone_employe']) ?></td>
-                            <td><?= htmlspecialchars($employe['Email_employe']) ?></td>
-                            <td><?= htmlspecialchars($employe['Location_employe']) ?></td>
-                            <td><?= htmlspecialchars($employe['Nom_metier']) ?></td>
-                            <td><?= htmlspecialchars($employe['Login_employe']) ?></td>
-                            <td><?= htmlspecialchars($employe['Salaire_employe']) ?></td>
-                            <td><?= htmlspecialchars($employe['Date_embauche_employe']) ?></td>
-                            <td><?= $employe['Nb_conges_restant'] ?></td>
-                            <td>
-                                <?php if ($isArchived): ?>
-                                    <a href="restauration_employe.php?id=<?= $employe['ID_employe'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir restaurer cet employé ?');">Restaurer</a>
-                                <?php else: ?>
-                                    <a href="modification_employe.php?id=<?= $employe['ID_employe'] ?>">Modifier</a> |
-                                    <a href="archivage_employe.php?id=<?= $employe['ID_employe'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir archiver cet employé ?');">Archiver</a>
-                                <?php endif; ?>
-                            </td>
+                </thead>
+                <tbody>
+                    <?php if (empty($employes)): ?>
+                        <tr>
+                            <td colspan="12">Aucun employé trouvé.</td>
                         </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </tbody>
-        </table>
-        <br>
-        <a href="ajouter_employe.php">Ajouter un nouvel employé</a>
+                    <?php else: ?>
+                        <?php foreach ($employes as $employe): ?>
+                            <tr class="<?= $isArchived ? 'archived' : '' ?>">
+                                <td><?= htmlspecialchars($employe['ID_employe']) ?></td>
+                                <td><?= htmlspecialchars($employe['Nom_employe']) ?></td>
+                                <td><?= htmlspecialchars($employe['Prenom_employe']) ?></td>
+                                <td><?= htmlspecialchars($employe['Telephone_employe']) ?></td>
+                                <td><?= htmlspecialchars($employe['Email_employe']) ?></td>
+                                <td><?= htmlspecialchars($employe['Location_employe']) ?></td>
+                                <td><?= htmlspecialchars($employe['Nom_metier']) ?></td>
+                                <td><?= htmlspecialchars($employe['Login_employe']) ?></td>
+                                <td><?= htmlspecialchars($employe['Salaire_employe']) ?></td>
+                                <td><?= htmlspecialchars($employe['Date_embauche_employe']) ?></td>
+                                <td><?= $employe['Nb_conges_restant'] ?></td>
+                                <td>
+                                    <?php if ($isArchived): ?>
+                                        <a href="restauration_employe.php?id=<?= $employe['ID_employe'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir restaurer cet employé ?');">Restaurer</a>
+                                    <?php else: ?>
+                                        <a href="modification_employe.php?id=<?= $employe['ID_employe'] ?>">Modifier</a> |
+                                        <a href="archivage_employe.php?id=<?= $employe['ID_employe'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir archiver cet employé ?');">Archiver</a>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+            <br>
+            <a href="ajouter_employe.php">Ajouter un nouvel employé</a>
+        </section>
+
+        <section class='py-5'>
+            <h2>
+                Gestion des congés
+            </h2>
+            <form action="validerconges.php">
+                <button class="btn btn-primary border border-dark" type="submit">Validation des congés</button>
+            </form>
+        </section>
     </div>
 
     <style>
