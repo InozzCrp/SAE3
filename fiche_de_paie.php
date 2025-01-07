@@ -42,7 +42,7 @@ if (isset($_POST['ficheId'])) {
             <label for="finPeriode">Fin</label>
             <input type="date" name="finPeriode" id="finPeriode" class="form-control" value="<?= htmlspecialchars($finPeriode) ?>" />
         </div>
-        <button type="submit" class="btn btn-primary mt-3">Soumettre</button>
+        <button type="submit" class="btn btn-primary mt-3 border border-dark">Soumettre</button>
     </form>
 
     <?php if (empty($fiches)) : ?>
@@ -58,11 +58,11 @@ if (isset($_POST['ficheId'])) {
                         <input type="hidden" name="ficheId" value="<?= htmlspecialchars($fiche['ID_Fichedepaie']) ?>" />
                         <input type="hidden" name="debutPeriode" id="debutPeriode" class="form-control" value="<?= $startPeriode ?>" />
                         <input type="hidden" name="finPeriode" id="finPeriode" class="form-control" value="<?= $finPeriode ?>" />
-                        <button type="submit" name="submit" class="btn btn-success me-2">Voir</button>
+                        <button type="submit" name="submit" class="btn btn-success me-2 border border-dark">Voir</button>
                     </form>
                     <form method="post" action="download.php" class="d-inline">
                         <input type="hidden" name="ficheId" value="<?= htmlspecialchars($fiche['ID_Fichedepaie']) ?>" />
-                        <button type="submit" class="btn btn-secondary">Télécharger</button>
+                        <button type="submit" class="btn btn-secondary border border-dark">Télécharger</button>
                     </form>
                 </div>
             <?php endforeach; ?>

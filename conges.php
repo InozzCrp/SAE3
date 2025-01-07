@@ -11,7 +11,7 @@ $nbconges = $informations["Nb_conges_restant"];
 ?>
 
 <link rel="stylesheet" type="text/css" href='styles/css/conges.css'>
-<div class='fiche-filter p-3 dashboardcontent'>
+<div class='fiche-filter mt-3 dashboardcontent'>
 
 <?php
 echo "Bonjour ". $informations["Nom_employe"] ." ". $informations["Prenom_employe"] .", il vous reste " . $nbconges. " jour(s) de congés restant. <br>";
@@ -48,8 +48,8 @@ if ($nbconges==0) {
 
 <form method="post">
 <input type="date" id="start" name="date-conges" value="2024-09-01" min="2024-09-01" max="2025-08-31" required />
+<div>--Veuillez choisir une période--</div>
 <select class="form-select" multiple name="periode" id="selection-periode" required>
-    <option disabled>--Veuillez choisir une période--</option>
     <option value="matinée">Matin</option>
     <option value="après-midi">Après-midi</option>
 <?php
@@ -59,13 +59,13 @@ if ($nbconges==0) {
 ?>
 </select>
 
-<button type="submit" class="btn btn-primary mt-3">Soumettre</button>
+<button type="submit" class="btn btn-primary mt-3 border border-dark">Soumettre</button>
 </form>
 
 <?php
         if($conges){
             echo '<form method="post" action="">';
-            echo '<button class="btn btn-success" type="submit" name="montre_conges">Afficher vos jours de congés</button>';
+            echo '<button class="btn btn-success border border-dark" type="submit" name="montre_conges">Afficher vos jours de congés</button>';
             echo '</form>';
         }
 
@@ -90,7 +90,7 @@ if ($nbconges==0) {
                     $validation=", en attente de validation";
                 }
 
-                echo "Le ". $formatter->format($dateTime) . ", ". $jour["Partie_journée"] ." ". $validation . "<br>";
+                echo "<p>Le ". $formatter->format($dateTime) . ", ". $jour["Partie_journee"] ." ". $validation . "</p>";
             }
         }
         if(isset($_GET["status"])){

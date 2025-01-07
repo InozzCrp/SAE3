@@ -37,10 +37,10 @@ $employes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <option value="active" <?= ($_GET['filter'] ?? 'active') === 'active' ? 'selected' : '' ?>>Actifs</option>
                 <option value="archived" <?= ($_GET['filter'] ?? '') === 'archived' ? 'selected' : '' ?>>Archivés</option>
             </select>
-            <button type="submit">Filtrer</button>
+            <button class="btn btn-secondary rounded-0 border border-dark" type="submit">Filtrer</button>
         </form>
         <form action="validerconges.php">
-            <button type="submit">Validation des congés</button>
+            <button class="btn btn-primary border border-dark" type="submit">Validation des congés</button>
         </form>
         <br><br>
 

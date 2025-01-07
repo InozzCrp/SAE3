@@ -33,11 +33,11 @@ $conges = recupererCongesAttente($pdo);
                             <td><?= htmlspecialchars($conge['Partie_journee']) ?></td>
                         <td>
                             <form method="post" action="validationconges.php?status=accept">
-                                <button type="submit">Accepter</button>
+                                <button class="btn btn-success border border-dark" type="submit">Accepter</button>
                                 <input type="hidden" name="idconge" value=<?php echo $conge['ID_conges'];?>></input>
                             </form>
                             <form method="post" action="validationconges.php?status=deny">
-                                <button type="submit">Refuser</button>
+                                <button class="btn btn-danger border border-dark" type="submit">Refuser</button>
                                 <input type="hidden" name="idconge" value=<?php echo $conge['ID_conges'];?>></input>
                             </form>
                     </td>

@@ -284,7 +284,7 @@ function isFerie($pdo,$date){
 }
 
 function insererConges($pdo,$id,$date,$periode){
-    $sql = "Insert into conges(Date_conge,partie_journée,id_employe) values (:date,:periode,:id)";
+    $sql = "Insert into conges(Date_conge,partie_journee,id_employe) values (:date,:periode,:id)";
     $stmt=$pdo->prepare($sql);
     $stmt->bindParam(':date',$date, PDO::PARAM_STR);
     $stmt->bindParam(':id',$id, PDO::PARAM_STR);

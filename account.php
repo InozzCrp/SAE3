@@ -26,7 +26,7 @@ foreach ($labels as $label => $key) {
 }
 
 echo '<form action="parametres/logout.php" method="POST">
-        <button type="submit" class="btn btn-success">Se déconnecter</button>
+        <button type="submit" class="btn btn-success border border-dark">Se déconnecter</button>
       </form>';
 
 echo "</div>";
