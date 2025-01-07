@@ -8,15 +8,17 @@ $id = $_SESSION["userid"];
 $informations = get_infos($pdo,$_SESSION["userid"]);
 $conges = recupererConges($pdo,$id);
 $nbconges = $informations["Nb_conges_restant"];
+?>
 
+<link rel="stylesheet" type="text/css" href='styles/css/conges.css'>
+<div class='fiche-filter p-3 dashboardcontent'>
 
-echo "<div class='p-3 dashboardcontent'>";
+<?php
 echo "Bonjour ". $informations["Nom_employe"] ." ". $informations["Prenom_employe"] .", il vous reste " . $nbconges. " jour(s) de congés restant. <br>";
 
-if($nbconges==0){
+if ($nbconges==0) {
     echo "</br> Par conséquent, vous ne pouvez plus réserver de congés";
-}
-else{
+} else {
     if(isset($_POST["date-conges"])){
         $date=$_POST["date-conges"];
         if(isweekend($date)){
@@ -42,26 +44,28 @@ else{
         }
     }
 }
-    ?>
+?>
 
-    <form method="post">
-    <input type="date" id="start" name="date-conges" value="2024-09-01" min="2024-09-01" max="2025-08-31" required />
-    <select name="periode" id="selection-periode" required>
-    <option value="">--Veuillez choisir une période--</option>
+<form method="post">
+<input type="date" id="start" name="date-conges" value="2024-09-01" min="2024-09-01" max="2025-08-31" required />
+<select class="form-select" multiple name="periode" id="selection-periode" required>
+    <option disabled>--Veuillez choisir une période--</option>
     <option value="matinée">Matin</option>
     <option value="après-midi">Après-midi</option>
-    <?php
-        if($nbconges>0.5){
-            echo "<option value='journée'>Journée entière</option>";
-        }
-    ?>
-    </select>
-    <button type="submit" class="btn btn-primary mt-3">Soumettre</button>
-    </form>
-    <?php
+<?php
+    if ($nbconges>0.5) {
+        echo "<option value='journée'>Journée entière</option>";
+    }
+?>
+</select>
+
+<button type="submit" class="btn btn-primary mt-3">Soumettre</button>
+</form>
+
+<?php
         if($conges){
             echo '<form method="post" action="">';
-            echo '<button type="submit" name="montre_conges">Afficher vos jours de congés</button>';
+            echo '<button class="btn btn-success" type="submit" name="montre_conges">Afficher vos jours de congés</button>';
             echo '</form>';
         }
 
@@ -102,6 +106,6 @@ else{
                 echo "<p>Votre demande à été transmise à l'administrateur</p>";
             }
         }
-
-        echo '</div>';
 ?>
+
+</div>

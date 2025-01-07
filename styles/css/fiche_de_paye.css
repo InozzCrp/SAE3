@@ -1,14 +1,3 @@
-.fiche-page {
-    margin: 20px auto;
-    width: 90%;
-    max-width: 800px;
-    padding: 20px;
-    background-color: var(--background);
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
 .fiche-filter {
     max-width: 500px;
     margin: 0 auto;
