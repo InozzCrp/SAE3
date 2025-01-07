@@ -68,7 +68,7 @@ else{
         if(isset($_POST["montre_conges"])){
             foreach($conges as $jour){
                 // Créer un objet DateTime
-                $date = $jour["Date_congé"];
+                $date = $jour["Date_conge"];
                 $dateTime = new DateTime($date);
 
                 // Formatter avec IntlDateFormatter
@@ -79,7 +79,7 @@ else{
                 );
                 $formatter->setPattern('EEEE d MMMM yyyy'); // Personnalisation du format
 
-                if($jour["Date_congé"]==1){
+                if($jour["Date_conge"]==1){
                     $validation=", validé";
                 }
                 else{

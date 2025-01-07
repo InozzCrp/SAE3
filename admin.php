@@ -39,7 +39,7 @@ $employes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </select>
             <button type="submit">Filtrer</button>
         </form>
-        <form action="validationconges.php">
+        <form action="validerconges.php">
             <button type="submit">Validation des congés</button>
         </form>
         <br><br>

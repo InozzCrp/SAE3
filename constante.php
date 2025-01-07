@@ -284,7 +284,7 @@ function isFerie($pdo,$date){
 }
 
 function insererConges($pdo,$id,$date,$periode){
-    $sql = "Insert into conges(date_congé,partie_journée,id_employe) values (:date,:periode,:id)";
+    $sql = "Insert into conges(Date_conge,partie_journée,id_employe) values (:date,:periode,:id)";
     $stmt=$pdo->prepare($sql);
     $stmt->bindParam(':date',$date, PDO::PARAM_STR);
     $stmt->bindParam(':id',$id, PDO::PARAM_STR);
@@ -294,7 +294,7 @@ function insererConges($pdo,$id,$date,$periode){
 }
 
 function recupererConges($pdo,$id){
-    $sql = "Select * from conges where ID_employe = :id order by Date_congé";
+    $sql = "Select * from conges where ID_employe = :id order by Date_conge";
     $stmt=$pdo->prepare($sql);
     $stmt->bindParam(':id',$id, PDO::PARAM_STR);
     $stmt->execute();
@@ -328,6 +328,15 @@ function updateConge($pdo,$id,$periode,$nbconges){
     $stmt=$pdo->prepare($sql);
     $stmt->bindParam(':id',$id, PDO::PARAM_STR);
     $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $success = $stmt->execute();
+    return $success;
+}
+
+function validationConges($pdo,$idconge,$status){
+    $sql = "update conges set validation=:status where id_conges=:id";
+    $stmt=$pdo->prepare($sql);
+    $stmt->bindParam(':id',$idconge, PDO::PARAM_STR);
+    $stmt->bindParam(':status',$status,PDO::PARAM_STR);
     $success = $stmt->execute();
     return $success;
 }
