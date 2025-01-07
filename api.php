@@ -64,7 +64,7 @@ function getEmploye($pdo, $id) {
 
 function addEmploye($pdo, $data) {
     $stmt = $pdo->prepare("
-        INSERT INTO employe (Nom_employe, Prenom_employe, Telephone_employe, Email_employe, Location_employe, ID_metier, Login_employe, Mdp_employe, Salaire_employe, Date_embauche_employe, Nb_congés_restant, Archive)
+        INSERT INTO employe (Nom_employe, Prenom_employe, Telephone_employe, Email_employe, Location_employe, ID_metier, Login_employe, Mdp_employe, Salaire_employe, Date_embauche_employe, Nb_conges_restant, Archive)
         VALUES (:nom, :prenom, :telephone, :email, :location, :metier, :login, :mdp, :salaire, :date_embauche, :nb_conges, 0)");
     $stmt->execute([
         'nom' => $data['Nom_employe'],
@@ -77,7 +77,7 @@ function addEmploye($pdo, $data) {
         'mdp' => password_hash($data['Mdp_employe'], PASSWORD_BCRYPT),
         'salaire' => $data['Salaire_employe'],
         'date_embauche' => $data['Date_embauche_employe'],
-        'nb_conges' => $data['Nb_congés_restant']
+        'nb_conges' => $data['Nb_conges_restant']
     ]);
     echo json_encode(["success" => true]);
 }
@@ -95,7 +95,7 @@ function updateEmploye($pdo, $id, $data) {
                 Mdp_employe = :Mdp_employe,
                 Salaire_employe = :Salaire_employe,
                 Date_embauche_employe = :Date_embauche_employe,
-                Nb_congés_restant = :Nb_congés_restant,
+                Nb_conges_restant = :Nb_conges_restant,
                 Archive = 0
                 WHERE ID_employe = :ID_employe";
 
@@ -111,7 +111,7 @@ function updateEmploye($pdo, $id, $data) {
         $stmt->bindParam(':Login_employe', $data['Login_employe']);
         $stmt->bindParam(':Salaire_employe', $data['Salaire_employe']);
         $stmt->bindParam(':Date_embauche_employe', $data['Date_embauche_employe']);
-        $stmt->bindParam(':Nb_congés_restant', $data['Nb_congés_restant']);
+        $stmt->bindParam(':Nb_conges_restant', $data['Nb_conges_restant']);
         $stmt->bindParam(':ID_employe', $id, PDO::PARAM_INT);
 
         // Exécute la requête

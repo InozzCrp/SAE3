@@ -7,7 +7,7 @@ get_header_dashbord();
 $id = $_SESSION["userid"];
 $informations = get_infos($pdo,$_SESSION["userid"]);
 $conges = recupererConges($pdo,$id);
-$nbconges = $informations["Nb_congés_restant"];
+$nbconges = $informations["Nb_conges_restant"];
 
 
 echo "<div class='p-3 dashboardcontent'>";

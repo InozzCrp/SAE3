@@ -8,7 +8,7 @@ $DEBUG_DELETE = false;
 $base = 'sae-3-db';
 $host = 'localhost';
 $name = 'root';
-$pass = '';
+$pass = 'Nathannat123*';
 
 date_default_timezone_set('Europe/Paris');
 
@@ -105,10 +105,22 @@ function get_infos($pdo, $uid)
 
 function updateEmploye($pdo, $id, $data) {
     try {
-        $sql = "UPDATE
-                    employe
-                SET 
-                    Nom_employe = :Nom_employe,
+        // Validation des données nécessaires
+        $requiredKeys = [
+            'Nom_employe', 'Prenom_employe', 'Telephone_employe', 'Email_employe',
+            'Location_employe', 'ID_metier', 'Login_employe', 'Mdp_employe',
+            'Salaire_employe', 'Date_embauche_employe', 'Nb_conges_restant'
+        ];
+
+        foreach ($requiredKeys as $key) {
+            if (!isset($data[$key])) {
+                throw new Exception("La clé '$key' est manquante dans les données.");
+            }
+        }
+
+        // Préparation de la requête SQL
+        $sql = "UPDATE employe
+                SET Nom_employe = :Nom_employe,
                     Prenom_employe = :Prenom_employe,
                     Telephone_employe = :Telephone_employe,
                     Email_employe = :Email_employe,
@@ -118,13 +130,12 @@ function updateEmploye($pdo, $id, $data) {
                     Mdp_employe = :Mdp_employe,
                     Salaire_employe = :Salaire_employe,
                     Date_embauche_employe = :Date_embauche_employe,
-                    Nb_congés_restant = :Nb_congés_restant,
-                WHERE
-                    ID_employe = :ID_employe";
+                    Nb_conges_restant = :Nb_conges_restant
+                WHERE ID_employe = :ID_employe";
 
         $stmt = $pdo->prepare($sql);
 
-        // Bind des paramètres
+        // Liaison des paramètres
         $stmt->bindParam(':Nom_employe', $data['Nom_employe'], PDO::PARAM_STR);
         $stmt->bindParam(':Prenom_employe', $data['Prenom_employe'], PDO::PARAM_STR);
         $stmt->bindParam(':Telephone_employe', $data['Telephone_employe'], PDO::PARAM_STR);
@@ -135,10 +146,13 @@ function updateEmploye($pdo, $id, $data) {
         $stmt->bindParam(':Mdp_employe', $data['Mdp_employe'], PDO::PARAM_STR);
         $stmt->bindParam(':Salaire_employe', $data['Salaire_employe'], PDO::PARAM_STR);
         $stmt->bindParam(':Date_embauche_employe', $data['Date_embauche_employe'], PDO::PARAM_STR);
-        $stmt->bindParam(':Nb_congés_restant', $data['Nb_congés_restant'], PDO::PARAM_STR);
+        $stmt->bindParam(':Nb_conges_restant', $data['Nb_conges_restant'], PDO::PARAM_STR);
         $stmt->bindParam(':ID_employe', $id, PDO::PARAM_INT);
 
-        // Exécute la requête
+        // Debug avant exécution
+        $stmt->debugDumpParams();
+
+        // Exécution de la requête
         $stmt->execute();
 
         return true;
@@ -147,6 +161,7 @@ function updateEmploye($pdo, $id, $data) {
         return false;
     }
 }
+
 
 function archiveEmploye($pdo, $id) {
     $stmt = $pdo->prepare("UPDATE employe SET archive = 1 WHERE ID_employe = :id");
@@ -292,9 +307,24 @@ function recupererConges($pdo,$id){
     }
 }
 
+function recupererCongesAttente($pdo){
+    $sql = 'Select * from conges,employe where validation=:status AND conges.ID_employe = employe.id_employe';
+    $stmt=$pdo->prepare($sql);
+    $status = "en_attente";
+    $stmt->bindParam(':status',$status, PDO::PARAM_STR);
+    $stmt->execute();
+    $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if($resultat){
+        return $resultat;
+        }
+    else{
+        return false;
+    }
+}
+
 function updateConge($pdo,$id,$periode,$nbconges){
     $duree = ($periode === "journée") ? 1 : 0.5;
-    $sql = "Update employe set nb_congés_restant = $nbconges-$duree where id_employe = :id";
+    $sql = "Update employe set Nb_conges_restant = $nbconges-$duree where id_employe = :id";
     $stmt=$pdo->prepare($sql);
     $stmt->bindParam(':id',$id, PDO::PARAM_STR);
     $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);

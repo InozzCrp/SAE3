@@ -39,6 +39,9 @@ $employes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </select>
             <button type="submit">Filtrer</button>
         </form>
+        <form action="validationconges.php">
+            <button type="submit">Validation des congés</button>
+        </form>
         <br><br>
 
         <table>
@@ -76,7 +79,7 @@ $employes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?= htmlspecialchars($employe['Login_employe']) ?></td>
                             <td><?= htmlspecialchars($employe['Salaire_employe']) ?></td>
                             <td><?= htmlspecialchars($employe['Date_embauche_employe']) ?></td>
-                            <td><?= htmlspecialchars($employe['Nb_congés_restant']) ?></td>
+                            <td><?= $employe['Nb_conges_restant'] ?></td>
                             <td>
                                 <?php if ($isArchived): ?>
                                     <a href="restauration_employe.php?id=<?= $employe['ID_employe'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir restaurer cet employé ?');">Restaurer</a>

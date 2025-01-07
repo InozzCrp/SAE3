@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'Mdp_employe' => trim($employe['Mdp_employe']),
         'Salaire_employe' => (float) $_POST['Salaire_employe'],
         'Date_embauche_employe' => $_POST['Date_embauche_employe'],
-        'Nb_congés_restant' => (float) $_POST['Nb_congés_restant'],
+        'Nb_conges_restant' => (float) $_POST['Nb_conges_restant'],
     ];
 
     // var_dump($data);
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Login :</label><input type="text" name="Login_employe" value="<?= htmlspecialchars($employe['Login_employe']) ?>" required><br>
         <label>Salaire :</label><input type="number" name="Salaire_employe" value="<?= htmlspecialchars($employe['Salaire_employe']) ?>" required><br>
         <label>Date d'embauche :</label><input type="date" name="Date_embauche_employe" value="<?= htmlspecialchars($employe['Date_embauche_employe']) ?>" required><br>
-        <label>Nb Congés Restants :</label><input type="number" name="Nb_congés_restant" value="<?= htmlspecialchars($employe['Nb_congés_restant']) ?>" required><br>
+        <label>Nb Congés Restants :</label><input type="number" name="Nb_conges_restant" value="<?= htmlspecialchars($employe['Nb_conges_restant']) ?>" required><br>
         <button type="submit">Enregistrer les modifications</button>
     </form>
     <a href="admin.php">Retour</a>
