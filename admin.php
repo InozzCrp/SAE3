@@ -30,7 +30,27 @@ $employes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
     <div class='p-3 dashboardcontent'>
-        <h1>Administration des Employés</h1>
+        <div class="d-flex container gap-5 justify-content-center">
+            <h1>Administration des Employés</h1>
+		</div>
+
+        <section class='py-5'>
+            <h2>
+                Gestion des congés
+            </h2>
+            <form action="validerconges.php">
+                <button class="btn btn-primary border border-dark" type="submit">Validation des congés</button>
+            </form>
+        </section>
+
+        <section class='py-5'>
+            <h2>
+                Gestion des fiches de paie
+            </h2>
+            <form action="gestionfiche.php">
+                <button class="btn btn-primary border border-dark" type="submit">Liste des fiches de paie</button>
+            </form>
+        </section>
 
         <section class='py-5'>
             <h2>
@@ -97,15 +117,6 @@ $employes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </table>
             <br>
             <a href="ajouter_employe.php">Ajouter un nouvel employé</a>
-        </section>
-
-        <section class='py-5'>
-            <h2>
-                Gestion des congés
-            </h2>
-            <form action="validerconges.php">
-                <button class="btn btn-primary border border-dark" type="submit">Validation des congés</button>
-            </form>
         </section>
     </div>
 

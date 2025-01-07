@@ -7,7 +7,7 @@
 		get_header();
 	?>
 
-	<main class="w-100 d-flex flex-column p-5">
+	<main class="w-100 d-flex flex-column px-5">
 		<section class="d-flex container gap-5 py-5 justify-content-center">
 			<div class="text-center col d-flex flex-column justify-content-center v-100">
 				<div class="col-12 mb-5">
@@ -47,7 +47,7 @@
 			</div>
 		</section>
 
-		<section class='py-5'>
+		<section id='contact' class='py-5'>
 			<div class="d-flex container gap-5 justify-content-center">
 				<h2>Contactez-nous</h2>
 			</div>
