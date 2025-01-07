@@ -26,12 +26,12 @@
                 <label class="row mx-auto" for="inputMDP">Mot de passe</label>
                 <input type="password" name="password" class="form-control row mx-auto" id="inputMDP" placeholder="Entrer le mot de passe" required>
             </div>
-            <div class="row">
-                <button type="submit" name="submit" class="btn index mx-auto">Se connecter</button>
+            <div class="container row">
+                <button type="submit" name="submit" class="btn btn-primary index mx-auto border border-dark">Se connecter</button>
             </div>
             <div class="form-group container row gap-1 mx-auto">
-                <a href="recuperation.php?content=login" class="row mx-auto btn btn-secondary mt-3">Login oublié ?</a>
-                <a href="recuperation.php?content=password" class="row mx-auto btn btn-secondary mt-3">Mot de passe oublié ?</a>
+                <a href="recuperation.php?content=login" class="row mx-auto btn btn-secondary mt-3 border border-dark">Login oublié ?</a>
+                <a href="recuperation.php?content=password" class="row mx-auto btn btn-secondary mt-3 border border-dark">Mot de passe oublié ?</a>
             <div class="form-group container row gap-1 mx-auto">
             
             <!-- Apparition d'un message d'erreur selon le code renvoyé dans l'URL -->

@@ -21,8 +21,8 @@
             <div class="form-group container row gap-1 mx-auto">
                 <input type="email" name="mail" id="email" pattern=".+@gerico\.fr" title="Veuillez utiliser une adresse email d'entreprise" required/>
             </div>
-            <div class="row">
-                <button type="submit" name="submit" class="btn index mx-auto">Valider</button>
+            <div class="container row">
+                <button type="submit" name="submit" class="btn btn-primary index mx-auto border border-dark">Valider</button>
             </div>
         </form>
 </div>
