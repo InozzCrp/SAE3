@@ -8,7 +8,7 @@ $DEBUG_DELETE = false;
 $base = 'sae-3-db';
 $host = 'localhost';
 $name = 'root';
-$pass = 'Nathannat123*';
+$pass = '';
 
 date_default_timezone_set('Europe/Paris');
 
