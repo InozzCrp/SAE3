@@ -1,5 +1,5 @@
 <?php
-require("constante.php");
+require_once("constante.php");
 get_head();
 get_header();
 $mail = $_POST["mail"];
@@ -27,7 +27,7 @@ $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
 if(!empty($resultat)){
     echo "Votre login est $resultat[login_employe]";
     ?>
-    <form action="../login.php">
+    <form action="/login.php">
         <input type="submit" value="Retour" />
     </form>
     <?php

@@ -1,5 +1,5 @@
 <?php
-require("constante.php");
+require_once("constante.php");
 
 // Vérifier si l'ID est passé via POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['ficheId'])) {

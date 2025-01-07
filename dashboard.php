@@ -1,5 +1,5 @@
 <?php
-require("constante.php");
+require_once("constante.php");
 
 get_session_verification();
 

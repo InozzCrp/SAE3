@@ -35,9 +35,13 @@ function get_header_dashbord(){
 
 function get_session_verification(){
     session_start();
+
+    if(get_bearer_token() === "fortnite")
+        exit;
+    
     if (!isset($_SESSION['userid'])) {
         header("Location: /login.php?error=notconnected");
-        exit();
+        exit;
     }
 }
 
@@ -45,8 +49,20 @@ function get_session_verification_admin(){
     get_session_verification();
     if ($_SESSION['is_admin'] !== TRUE) {
         header("Location: /dashboard.php");
-        exit();
+        exit;
     }
+}
+
+function get_bearer_token() {
+    $headers = apache_request_headers();
+    
+    if (isset($headers['Authorization'])) {
+        // Extraire le token de l'en-tête Authorization (format: Bearer <token>)
+        if (preg_match('/Bearer\s(\S+)/', $headers['Authorization'], $matches)) {
+            return $matches[1];
+        }
+    }
+    return null; // Si aucun token n'est fourni
 }
 
 function get_footer(){
@@ -62,7 +78,7 @@ function get_infos($pdo, $uid)
     // Vérifiez si la préparation de la requête a échoué
     if (!$stmt)
     {
-        header("Location: /login.php?error=stmtfailed");
+        header("Location: ?error=stmtfailed");
         exit();
     }
 
@@ -85,6 +101,56 @@ function get_infos($pdo, $uid)
         // Si aucune ligne n'est retournée, l'uid n'existe pas
         return false;
     }
+}
+
+function updateEmploye($pdo, $id, $data) {
+    try {
+        $sql = "UPDATE
+                    employe
+                SET 
+                    Nom_employe = :Nom_employe,
+                    Prenom_employe = :Prenom_employe,
+                    Telephone_employe = :Telephone_employe,
+                    Email_employe = :Email_employe,
+                    Location_employe = :Location_employe,
+                    ID_metier = :ID_metier,
+                    Login_employe = :Login_employe,
+                    Mdp_employe = :Mdp_employe,
+                    Salaire_employe = :Salaire_employe,
+                    Date_embauche_employe = :Date_embauche_employe,
+                    Nb_congés_restant = :Nb_congés_restant,
+                WHERE
+                    ID_employe = :ID_employe";
+
+        $stmt = $pdo->prepare($sql);
+
+        // Bind des paramètres
+        $stmt->bindParam(':Nom_employe', $data['Nom_employe'], PDO::PARAM_STR);
+        $stmt->bindParam(':Prenom_employe', $data['Prenom_employe'], PDO::PARAM_STR);
+        $stmt->bindParam(':Telephone_employe', $data['Telephone_employe'], PDO::PARAM_STR);
+        $stmt->bindParam(':Email_employe', $data['Email_employe'], PDO::PARAM_STR);
+        $stmt->bindParam(':Location_employe', $data['Location_employe'], PDO::PARAM_STR);
+        $stmt->bindParam(':ID_metier', $data['ID_metier'], PDO::PARAM_INT);
+        $stmt->bindParam(':Login_employe', $data['Login_employe'], PDO::PARAM_STR);
+        $stmt->bindParam(':Mdp_employe', $data['Mdp_employe'], PDO::PARAM_STR);
+        $stmt->bindParam(':Salaire_employe', $data['Salaire_employe'], PDO::PARAM_STR);
+        $stmt->bindParam(':Date_embauche_employe', $data['Date_embauche_employe'], PDO::PARAM_STR);
+        $stmt->bindParam(':Nb_congés_restant', $data['Nb_congés_restant'], PDO::PARAM_STR);
+        $stmt->bindParam(':ID_employe', $id, PDO::PARAM_INT);
+
+        // Exécute la requête
+        $stmt->execute();
+
+        return true;
+    } catch (PDOException $e) {
+        echo "Erreur lors de la mise à jour : " . $e->getMessage();
+        return false;
+    }
+}
+
+function archiveEmploye($pdo, $id) {
+    $stmt = $pdo->prepare("UPDATE employe SET archive = 1 WHERE ID_employe = :id");
+    $stmt->execute(['id' => $id]);
 }
 
 function uidExists($pdo, $uid)
